@@ -1,19 +1,19 @@
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Scanner;
+import javax.swing.*;
 
 public final class App {
 
+    @NotNull
     private static LibraryFactory libraryFactory = new LibraryFactory();
 
-    public static void main(@NonNull String[] args) {
+    public static void main(@NotNull String[] args) {
 
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter search param: ");
-
-        String authorName = in.nextLine();
+        String authorName = String.valueOf(JOptionPane
+                .showInputDialog("Enter search parameter: "));
 
         libraryFactory.searchByAuthor(authorName);
+        libraryFactory.showLib(authorName);
 
     }
 }

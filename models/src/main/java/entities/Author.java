@@ -2,22 +2,22 @@ package entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
+import org.jetbrains.annotations.Nullable;
 
 @NoArgsConstructor
 public final class Author {
 
     @Setter
     @Getter
-    @NonNull
-    private static String name;
+    @Nullable
+    transient Long bookId;
     @Setter
     @Getter
-    @NonNull
-    private Long id;
+    @Nullable
+    private String name;
     @Setter
     @Getter
-    @NonNull
-    private Long bookId;
+    @Nullable
+    transient private Long id;
 }

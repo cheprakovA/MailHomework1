@@ -1,8 +1,8 @@
 import entities.Book;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,6 @@ final class Library {
 
     @Setter
     @Getter
-    @NonNull
+    @NotNull
     List<Book> books = new ArrayList<>();
 }

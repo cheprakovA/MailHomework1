@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import entities.Author;
 import entities.Book;
 import org.jetbrains.annotations.NotNull;
@@ -12,15 +13,17 @@ final class LibraryFactory {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ignored) {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
 
     @Nullable
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/books",
-                "root", "password");
+        String url = "jdbc:mysql://localhost:3306/library?useUnicode=true&useJDBCCompliantTimezoneShift=true" +
+                "&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        return DriverManager.getConnection(url, "root", "pass");
     }
 
     private void closeConnection(@Nullable Connection connection) {
@@ -46,15 +49,28 @@ final class LibraryFactory {
                 Book book = new Book();
                 Author author = new Author();
                 book.setId(resultSet.getLong("id"));
-                Book.setTitle(resultSet.getString("title"));
-                Author.setName(resultSet.getString("name"));
+                book.setTitle(resultSet.getString("title"));
+                author.setId(resultSet.getLong("id"));
+                author.setName(resultSet.getString("name"));
                 author.setBookId(resultSet.getLong("book_id"));
+                book.setAuthor(author);
                 library.books.add(book);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
             closeConnection(connection);
+        }
+    }
+
+    void showLib(@NotNull String authorName) {
+        Gson json = new Gson();
+        String shownResult;
+        if (!library.books.isEmpty()) {
+            shownResult = json.toJson(library);
+            System.out.println(shownResult);
+        } else {
+            System.out.print("There is no books written by " + authorName);
         }
     }
 }

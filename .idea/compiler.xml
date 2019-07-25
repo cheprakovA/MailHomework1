@@ -7,6 +7,8 @@
     <bytecodeTargetLevel>
       <module name="library.controller_.main" target="1.8" />
       <module name="library.controller_.test" target="1.8" />
+      <module name="library.main" target="1.8" />
+      <module name="library.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

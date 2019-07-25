@@ -3,17 +3,23 @@ package entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @NoArgsConstructor
 public final class Book {
 
     @Setter
     @Getter
-    @NotNull
-    private static String title;
+    @Nullable
+    private String title;
+
     @Setter
     @Getter
-    @NotNull
-    private Long id;
+    @Nullable
+    transient private Long id;
+
+    @Setter
+    @Getter
+    @Nullable
+    private Author author;
 }
